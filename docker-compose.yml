@@ -1,0 +1,19 @@
+# Lokalna baza MongoDB dla projektu BigData.
+# Start:   sudo docker compose up -d
+# Stop:    sudo docker compose down
+# Usunięcie razem z danymi:  sudo docker compose down -v
+services:
+  mongo:
+    image: mongo:8.0
+    container_name: lol-mongo
+    ports:
+      - "127.0.0.1:27017:27017"   # dostępna tylko z tego komputera
+    command:
+      - --wiredTigerCacheSizeGB=4
+      - --wiredTigerCollectionBlockCompressor=zstd
+    volumes:
+      - lol-mongo-data:/data/db
+    restart: unless-stopped
+
+volumes:
+  lol-mongo-data:
